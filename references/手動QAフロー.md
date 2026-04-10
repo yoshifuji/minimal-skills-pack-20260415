@@ -1,0 +1,7 @@
+# 互換リダイレクト
+
+この tutor marketplace 向け reference は次へ移動しました。
+
+- `references/examples/tutor-marketplace/手動QAフロー.md`
+
+旧 path は互換性のために残しています。
