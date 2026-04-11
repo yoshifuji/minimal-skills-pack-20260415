@@ -1,104 +1,102 @@
-# Service Marketplace Skills Pack
+# Webアプリ開発用 Skills 集
 
-provider/customer 型の **サービス予約マーケットプレイス** を実装するための agent-skills パックです。  
-core workflow、stack skill、generic marketplace pattern、legacy tutor example overlay をまとめています。
+この一式は、Web アプリでよく使う機能を **最小 8 本の skill** に絞ってまとめたものです。
 
-主な前提スタック:
+## 中心となる 8 本
 
-- Next.js App Router
-- TypeScript
-- Supabase Auth + Postgres + RLS
-- Stripe Checkout
-- Stripe Connect Express
-- destination charges
+1. `auth-and-session`
+   会員登録、ログイン、ログアウト、ログイン状態の維持
+2. `schema-and-migrations`
+   DB の設計、変更手順、制約、検索を速くする設定
+3. `database-integration`
+   アプリから DB を安全に読み書きするための整理
+4. `crud-and-route-handlers`
+   一覧、詳細、作成、更新、削除と API の受け口
+5. `forms-and-validation`
+   入力フォーム、入力チェック、エラー表示
+6. `role-based-access-control`
+   役割ごとの権限、所有者チェック、閲覧制限
+7. `file-upload-and-storage`
+   画像アップロード、添付ファイル、保存先管理
+8. `billing-and-payments`
+   決済、支払い状態の更新、返金
 
-## 構成
+## まず読む順番
 
-### Core workflow
+1. `はじめに.md`
+2. `docs/機能別Webアプリskills設計書.md`
+3. 必要な skill の `SKILL.md`
+4. 対応する `references/`
 
-- `spec-driven-development`
-- `planning-and-task-breakdown`
-- `incremental-implementation`
-- `api-and-interface-design`
-- `frontend-ui-engineering`
-- `debugging-and-error-recovery`
-- `security-and-hardening`
-- `shipping-and-launch`
+## まず使いやすい組み合わせ
 
-### Stack
+### 会員登録ありの基本アプリ
 
-- `nextjs-supabase-ssr-auth`
-- `postgres-rls-and-public-read-models`
-- `stripe-connect-express-onboarding`
-- `deployment-for-nextjs-supabase-stripe`
+- `auth-and-session`
+- `schema-and-migrations`
+- `database-integration`
+- `crud-and-route-handlers`
+- `forms-and-validation`
 
-### Generic marketplace pattern
+### 管理画面つきアプリ
 
-- `marketplace-foundation-workflow`
-- `role-based-portals-and-navigation`
-- `stripe-single-seller-checkout`
-- `payment-webhook-reconciliation`
-- `refunds-and-cancellation-workflows`
+- 基本の 5 本
+- `role-based-access-control`
 
-### Legacy compatibility wrappers
+### 画像アップロードがあるアプリ
 
-- `using-marketplace-agent-skills`
-- `role-based-marketplace-pages`
-- `checkout-booking-and-destination-charges`
-- `refunds-and-booking-cancellation`
+- 基本の 5 本
+- `file-upload-and-storage`
 
-### Example overlay
+### 決済があるアプリ
 
-- `example-tutor-marketplace`
+- 基本の 5 本
+- `billing-and-payments`
+
+## よく参照する資料
+
+### 認証
+
+- `references/認証フロー.md`
+- `references/パスワード再設定チェックリスト.md`
+- `references/セッション境界チェックリスト.md`
+
+### DB 設計と DB 接続
+
+- `references/DB変更チェックリスト.md`
+- `references/インデックス設計ガイド.md`
+- `references/DB設計レビューチェックリスト.md`
+- `references/DBアクセスパターン.md`
+- `references/問い合わせエラー対応.md`
+- `references/サーバーと画面の境界.md`
+
+### 基本操作とフォーム
+
+- `references/API受け口ひな形.md`
+- `references/エラー応答ガイド.md`
+- `references/基本操作チェックリスト.md`
+- `references/フォームパターン集.md`
+- `references/入力エラーメッセージガイド.md`
+- `references/入力の抜け漏れ集.md`
+
+### 権限、ファイル、決済
+
+- `references/権限表ひな形.md`
+- `references/所有者確認チェックリスト.md`
+- `references/閲覧制限ページガイド.md`
+- `references/アップロードチェックリスト.md`
+- `references/保存先セキュリティガイド.md`
+- `references/画像取り扱いガイド.md`
+- `references/支払い状態遷移.md`
+- `references/支払い通知チェックリスト.md`
+- `references/返金ガイド.md`
+
+## この一式に残すもの
+
+- `skills/` 配下の最小 8 本
+- `references/` 配下の関連資料
+- `docs/機能別Webアプリskills設計書.md`
 - `はじめに.md`
-- `docs/講師マーケットプレイス実行手順書.md`
-- `references/examples/tutor-marketplace/`
+- `スキルズプロジェクト概要資料.md`
 
-## 入口
-
-### 新しい service marketplace を作る
-
-1. `specs/講師マーケットプレイス再現仕様プロンプト.md` を読む  
-   注: ファイル名は互換性のため維持していますが、中身は generic なサービス予約 marketplace の example overlay です。
-2. `skills/marketplace-foundation-workflow/SKILL.md` を読む
-3. `spec-driven-development` で `SPEC.md` を作る
-4. `planning-and-task-breakdown` で `tasks/plan.md` と `tasks/todo.md` を作る
-5. generic skill の順で schema → auth → portals → connect → checkout → webhook → refund → deploy と進める
-
-### 旧 tutor marketplace 例をたどる
-
-1. `はじめに.md` を読む
-2. `skills/example-tutor-marketplace/SKILL.md` を読む
-3. `docs/講師マーケットプレイス実行手順書.md` を読む
-4. `references/examples/tutor-marketplace/` を参照しながら進める
-
-## References
-
-### 共通 reference
-
-- `references/Stripeイベントマトリクス.md`
-- `references/環境変数とシークレット一覧.md`
-- `references/セキュリティチェックリスト.md`
-- `references/アクセシビリティチェックリスト.md`
-- `references/パフォーマンスチェックリスト.md`
-
-### Tutor example reference
-
-- `references/examples/tutor-marketplace/データモデル概要.md`
-- `references/examples/tutor-marketplace/デザインブリーフ.md`
-- `references/examples/tutor-marketplace/手動QAフロー.md`
-- `references/examples/tutor-marketplace/実行成果物チェックリスト.md`
-
-旧 path の tutor reference は compatibility redirect として残しています。
-
-## 期待する成果物
-
-- `SPEC.md`
-- `tasks/plan.md`
-- `tasks/todo.md`
-- `app/` 配下の Next.js 実装
-- `components/` 配下の UI 実装
-- `lib/` 配下の auth / Stripe / data helpers
-- `supabase/schema.sql`
-- `.env.example`
-- deploy / setup docs
+最初は「基本の 5 本」で小さく作り、必要になったときだけ 6〜8 本目を足す進め方を想定しています。
