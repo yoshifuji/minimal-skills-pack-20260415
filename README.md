@@ -22,7 +22,7 @@
 ## まず読む順番
 
 1. `はじめに.md`
-2. `docs/機能別Webアプリskills設計書.md`
+2. `docs/`配下の資料
 3. 必要な skill の `SKILL.md`
 4. 対応する `references/`
 
