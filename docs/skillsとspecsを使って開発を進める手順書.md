@@ -25,7 +25,7 @@ style: |
 
 - 入力として使うもの
   - `skills/`
-  - `C:\Users\yoshi\work\minimal-skills-pack-20260415\specs`
+  - `C:\Users\username\work\minimal-skills-pack\specs`
 - 目的
   - 仕様を整理してから、1 タスクずつ安全に開発を進める
 
@@ -56,9 +56,9 @@ style: |
 ## おすすめの構成
 
 - skills 集の repository
-  - `C:\Users\yoshi\work\minimal-skills-pack-20260415`
+  - `C:\Users\username\work\minimal-skills-pack`
 - 実際にアプリを作る作業用 project
-  - 例: `C:\Users\yoshi\work\my-first-app`
+  - 例: `C:\Users\username\work\my-first-app`
 
 skills 集そのものと、実際の開発先は分けてください。  
 このほうが誤って skills 集を壊しにくくなります。
@@ -70,15 +70,15 @@ skills 集そのものと、実際の開発先は分けてください。
 ### PowerShell
 
 ```powershell
-New-Item -ItemType Directory -Force -Path C:\Users\yoshi\work\my-first-app | Out-Null
-Set-Location C:\Users\yoshi\work\my-first-app
+New-Item -ItemType Directory -Force -Path C:\Users\username\work\my-first-app | Out-Null
+Set-Location C:\Users\username\work\my-first-app
 ```
 
 ### bash
 
 ```bash
-mkdir -p /c/Users/yoshi/work/my-first-app
-cd /c/Users/yoshi/work/my-first-app
+mkdir -p /c/Users/username/work/my-first-app
+cd /c/Users/username/work/my-first-app
 ```
 
 `bash` は Git Bash 前提です。  
@@ -96,7 +96,7 @@ WSL の場合は `/mnt/c/Users/...` に読み替えてください。
 
 使う例:
 
-- `C:\Users\yoshi\work\minimal-skills-pack-20260415\specs\汎用サービス(予約マーケットプレイス)仕様プロンプト.md`
+- `C:\Users\username\work\minimal-skills-pack\specs\汎用サービス(予約マーケットプレイス)仕様プロンプト.md`
 
 ---
 
@@ -105,19 +105,19 @@ WSL の場合は `/mnt/c/Users/...` に読み替えてください。
 ### PowerShell
 
 ```powershell
-Set-Location C:\Users\yoshi\work\my-first-app
+Set-Location C:\Users\username\work\my-first-app
 New-Item -ItemType Directory -Force -Path .\docs\input-specs | Out-Null
 Copy-Item `
-  -Path "C:\Users\yoshi\work\minimal-skills-pack-20260415\specs\汎用サービス(予約マーケットプレイス)仕様プロンプト.md" `
+  -Path "C:\Users\username\work\minimal-skills-pack\specs\汎用サービス(予約マーケットプレイス)仕様プロンプト.md" `
   -Destination .\docs\input-specs\
 ```
 
 ### bash
 
 ```bash
-cd /c/Users/yoshi/work/my-first-app
+cd /c/Users/username/work/my-first-app
 mkdir -p ./docs/input-specs
-cp "/c/Users/yoshi/work/minimal-skills-pack-20260415/specs/汎用サービス(予約マーケットプレイス)仕様プロンプト.md" ./docs/input-specs/
+cp "/c/Users/username/work/minimal-skills-pack/specs/汎用サービス(予約マーケットプレイス)仕様プロンプト.md" ./docs/input-specs/
 ```
 
 ---
@@ -145,8 +145,8 @@ project 側に次のファイルがある状態にしてください。
 
 詳しいコマンドは次の手順書を見てください。
 
-- [Codexでskillsを使う手順書.md](</c:/Users/yoshi/work/minimal-skills-pack-20260415/docs/Codexでskillsを使う手順書.md>)
-- [ClaudeCodeでskillsを使う手順書.md](</c:/Users/yoshi/work/minimal-skills-pack-20260415/docs/ClaudeCodeでskillsを使う手順書.md>)
+- [Codexでskillsを使う手順書.md](</c:/Users/username/work/minimal-skills-pack/docs/Codexでskillsを使う手順書.md>)
+- [ClaudeCodeでskillsを使う手順書.md](</c:/Users/username/work/minimal-skills-pack/docs/ClaudeCodeでskillsを使う手順書.md>)
 
 ---
 
@@ -155,24 +155,24 @@ project 側に次のファイルがある状態にしてください。
 ### Codex
 
 ```powershell
-Set-Location C:\Users\yoshi\work\my-first-app
+Set-Location C:\Users\username\work\my-first-app
 codex
 ```
 
 ```bash
-cd /c/Users/yoshi/work/my-first-app
+cd /c/Users/username/work/my-first-app
 codex
 ```
 
 ### Claude Code
 
 ```powershell
-Set-Location C:\Users\yoshi\work\my-first-app
+Set-Location C:\Users\username\work\my-first-app
 claude
 ```
 
 ```bash
-cd /c/Users/yoshi/work/my-first-app
+cd /c/Users/username/work/my-first-app
 claude
 ```
 
