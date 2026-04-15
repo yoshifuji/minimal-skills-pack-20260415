@@ -87,7 +87,7 @@ cd /c/Users/username/work/my-first-app
 
 今回は `specs` にある次のファイルを使う例で説明します。
 
-- `C:\Users\username\work\minimal-skills-pack-20260415\specs\汎用サービス(予約マーケットプレイス)仕様プロンプト.md`
+- `C:\Users\username\work\minimal-skills-pack-20260415\specs\汎用サービス開発仕様プロンプト.md`
 
 ### PowerShell
 
@@ -97,7 +97,7 @@ Set-Location C:\Users\username\work\my-first-app
 New-Item -ItemType Directory -Force -Path .\docs\input-specs | Out-Null
 
 Copy-Item `
-  -Path "C:\Users\username\work\minimal-skills-pack-20260415\specs\汎用サービス(予約マーケットプレイス)仕様プロンプト.md" `
+  -Path "C:\Users\username\work\minimal-skills-pack-20260415\specs\汎用サービス開発仕様プロンプト.md" `
   -Destination .\docs\input-specs\
 ```
 
@@ -108,12 +108,12 @@ cd /c/Users/username/work/my-first-app
 
 mkdir -p ./docs/input-specs
 
-cp "/c/Users/username/work/minimal-skills-pack-20260415/specs/汎用サービス(予約マーケットプレイス)仕様プロンプト.md" ./docs/input-specs/
+cp "/c/Users/username/work/minimal-skills-pack-20260415/specs/汎用サービス開発仕様プロンプト.md" ./docs/input-specs/
 ```
 
 コピーできたら、project 側に次のファイルがある状態にしてください。
 
-- `docs/input-specs/汎用サービス(予約マーケットプレイス)仕様プロンプト.md`
+- `docs/input-specs/汎用サービス開発仕様プロンプト.md`
 
 ## Step 3. skills を project で使えるようにする
 
@@ -180,7 +180,7 @@ claude
 この project では、利用可能な skills を使いながら開発を進めてください。
 
 まず次のファイルを読んでください。
-- docs/input-specs/汎用サービス(予約マーケットプレイス)仕様プロンプト.md
+- docs/input-specs/汎用サービス開発仕様プロンプト.md
 
 作業の進め方は次の条件に従ってください。
 - 最初はいきなり実装しない
@@ -301,7 +301,7 @@ tasks/todo.md のタスクがまだ大きいです。
 いまの実装が spec からずれていないか確認してください。
 
 比較対象:
-- docs/input-specs/汎用サービス(予約マーケットプレイス)仕様プロンプト.md
+- docs/input-specs/汎用サービス開発仕様プロンプト.md
 - SPEC.md
 
 やってほしいこと:
