@@ -1,26 +1,67 @@
+---
+marp: true
+theme: default
+paginate: true
+size: 16:9
+style: |
+  section {
+    font-size: 21px;
+    line-height: 1.45;
+  }
+  h1, h2 {
+    color: #0f172a;
+  }
+  strong {
+    color: #1d4ed8;
+  }
+  code {
+    font-size: 0.88em;
+  }
+---
+
 # Codexでskillsを使う手順書
 
-この手順書は、`C:\Users\yoshi\work\minimal-skills-pack-20260415\skills` 配下の skill を、Codex で使えるようにするためのものです。
+`minimal-skills-pack-20260415` を  
+**Codex で使える形にするための Marp 版手順書**
 
-確認日: 2026-04-15
+- 対象: `skills/` と `references/` を Codex で利用したい人
+- 前提: repository root は `C:\Users\yoshi\work\minimal-skills-pack-20260415`
+- 確認日: 2026-04-15
+
+---
 
 ## 前提
 
-- repository root: `C:\Users\yoshi\work\minimal-skills-pack-20260415`
-- skill 本体: `C:\Users\yoshi\work\minimal-skills-pack-20260415\skills`
-- 参照資料: `C:\Users\yoshi\work\minimal-skills-pack-20260415\references`
+- skill 本体
+  - `C:\Users\yoshi\work\minimal-skills-pack-20260415\skills`
+- 参照資料
+  - `C:\Users\yoshi\work\minimal-skills-pack-20260415\references`
+- Codex 用の配置先
+  - `./.agents/skills`
+  - `./.agents/references`
 
-`bash` の例は Git Bash を想定して `/c/Users/...` 形式で書いています。  
-WSL を使う場合は `/mnt/c/Users/...` に読み替えてください。
+この repository の `SKILL.md` は  
+`../../references/...` を参照する前提です。  
+そのため **`skills` と `references` をセットで配置** します。
 
-この repository の各 `SKILL.md` は、`../../references/...` を参照する前提で書かれています。  
-そのため、Codex 用の `.agents/skills` だけでなく、`.agents/references` もあわせて用意してください。
+---
 
 ## もっとも確実な方法
 
-Codex の公式な repository-local skill 配置は `.agents/skills/<skill-name>/SKILL.md` です。  
-この repository では、次のように project 内へコピーして使うのが確実です。  
-`./.agents` がまだ存在しない場合は、先に `./.agents` を作成してください。下記のコマンドにはその作成処理も含まれています。
+Codex の repository-local skill 配置は次です。
+
+- `.agents/skills/<skill-name>/SKILL.md`
+
+この repository では、**project 内へコピーして使う方式** がもっとも確実です。
+
+- 利点
+  - Codex の標準構成にそのまま合わせられる
+  - skill 側の相対参照を保ちやすい
+  - project ごとに完結する
+
+---
+
+## コピー手順: PowerShell
 
 ```powershell
 Set-Location C:\Users\yoshi\work\minimal-skills-pack-20260415
@@ -33,6 +74,15 @@ Copy-Item -Recurse -Force -Path .\skills\* -Destination .\.agents\skills\
 Copy-Item -Recurse -Force -Path .\references\* -Destination .\.agents\references\
 ```
 
+`./.agents` がまだ無い場合も、このコマンドでまとめて作成できます。
+
+---
+
+## コピー手順: bash
+
+Git Bash 前提です。  
+WSL を使う場合は `/mnt/c/Users/...` に読み替えてください。
+
 ```bash
 cd /c/Users/yoshi/work/minimal-skills-pack-20260415
 
@@ -42,39 +92,46 @@ cp -R ./skills/. ./.agents/skills/
 cp -R ./references/. ./.agents/references/
 ```
 
+---
+
 ## 反映確認
 
-1. repository root で Codex を起動します。
+1. repository root で Codex を起動する
+2. `/skills` で一覧を見る
+3. `$skill-name` で明示呼び出しする
+4. description ベースの暗黙利用も試す
 
 ```powershell
 Set-Location C:\Users\yoshi\work\minimal-skills-pack-20260415
 codex
 ```
 
-```bash
-cd /c/Users/yoshi/work/minimal-skills-pack-20260415
-codex
-```
-
-2. Codex セッション内で skill 一覧を確認します。
-
 ```text
 /skills
-```
-
-3. 明示的に skill を呼ぶときは、`$` で skill 名を指定します。
-
-```text
 $auth-and-session
 $schema-and-migrations
 ```
 
-4. 暗黙利用も可能です。  
-たとえば「ログイン、ログアウト、保護ページを実装したい」と書くと、`description` に一致した skill が読み込まれます。
+---
+
+## 呼び出し方のポイント
+
+- 明示呼び出し
+  - `/skills` で一覧確認
+  - `$skill-name` で指定
+- 暗黙利用
+  - 依頼文の内容が `description` に合うと自動選択される
+
+例:
+
+- 「ログイン、ログアウト、保護ページを実装したい」
+  - `auth-and-session` 系の skill が読み込まれやすい
+
+---
 
 ## skill を更新したとき
 
-root の `skills/` や `references/` を編集した場合は、もう一度同じコピーを実行してください。
+`skills/` や `references/` を編集したら、同じコピーを再実行します。
 
 ```powershell
 Set-Location C:\Users\yoshi\work\minimal-skills-pack-20260415
@@ -90,11 +147,16 @@ cp -R ./skills/. ./.agents/skills/
 cp -R ./references/. ./.agents/references/
 ```
 
-Codex は skill 変更を自動検出しますが、反映されない場合は Codex を再起動してください。
+Codex は自動検出しますが、反映されない場合は再起動してください。
+
+---
 
 ## 全プロジェクトで使いたい場合
 
-個人環境の global skill として使う場合は、`$HOME\.agents\skills` と `$HOME\.agents\references` に配置します。
+global skill として使うなら、配置先は次です。
+
+- `$HOME\.agents\skills`
+- `$HOME\.agents\references`
 
 ```powershell
 Set-Location C:\Users\yoshi\work\minimal-skills-pack-20260415
@@ -107,21 +169,16 @@ Copy-Item -Recurse -Force -Path .\skills\* -Destination $HOME\.agents\skills\
 Copy-Item -Recurse -Force -Path .\references\* -Destination $HOME\.agents\references\
 ```
 
-```bash
-cd /c/Users/yoshi/work/minimal-skills-pack-20260415
+どの repository で Codex を起動しても同じ skill を使えます。
 
-mkdir -p "$HOME/.agents/skills" "$HOME/.agents/references"
-
-cp -R ./skills/. "$HOME/.agents/skills/"
-cp -R ./references/. "$HOME/.agents/references/"
-```
-
-この場合、どの repository で Codex を起動しても同じ skill を使えます。
+---
 
 ## 1つの元ディレクトリで管理したい場合
 
-Codex の公式ドキュメントでは、skill folder の symlink をサポートしています。  
-この repository を単一の正本として維持したい場合は、Windows の junction を使う方法もあります。
+Codex の公式ドキュメントでは  
+**symlinked skill folders をサポート** しています。
+
+Windows なら junction、bash なら symlink を使えます。
 
 ```powershell
 Set-Location C:\Users\yoshi\work\minimal-skills-pack-20260415
@@ -131,20 +188,21 @@ New-Item -ItemType Junction -Path .\.agents\skills -Target (Resolve-Path .\skill
 New-Item -ItemType Junction -Path .\.agents\references -Target (Resolve-Path .\references) | Out-Null
 ```
 
-```bash
-cd /c/Users/yoshi/work/minimal-skills-pack-20260415
+- 既存の `.agents\skills` や `.agents\references` がある場合は先に整理が必要です
+- 安全性を優先するなら、まずはコピー方式で始めるのが無難です
 
-mkdir -p ./.agents
-ln -s "$(pwd)/skills" ./.agents/skills
-ln -s "$(pwd)/references" ./.agents/references
-```
+---
 
-既に `.agents\skills` や `.agents\references` がある場合は、先に削除してから作成してください。  
-運用上の安全性を優先するなら、まずはコピー方式で始めるほうが無難です。  
-Windows の bash で `ln -s` を使う場合は、環境によって管理者権限または Developer Mode が必要です。
+## 補足と一次情報
 
-## 一次情報
+- `SKILL.md` が必須です
+- repository-local は `.agents/skills`
+- global は `$HOME/.agents/skills`
+- 明示呼び出しは `/skills` と `$skill-name`
+- symlinked skill folders をサポートしています
 
-- OpenAI Developers, `Agent Skills – Codex`
-  - https://developers.openai.com/codex/skills
-  - 確認した要点: `SKILL.md` 必須、明示呼び出しは `/skills` または `$`、repository-local の配置先は `.agents/skills`、`$HOME/.agents/skills` も使用可、symlinked skill folders をサポート
+一次情報:
+
+- OpenAI Developers
+  - `Agent Skills – Codex`
+  - `https://developers.openai.com/codex/skills`
