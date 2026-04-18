@@ -25,7 +25,7 @@ style: |
 **Codex で使える形にするための Marp 版手順書**
 
 - 対象: `skills/` と `references/` を Codex で利用したい人
-- 前提: repository root は `C:\Users\yoshi\work\minimal-skills-pack-20260415`
+- 前提: repository root は `C:\Users\username\work\minimal-skills-pack-20260415`
 - 確認日: 2026-04-15
 
 ---
@@ -33,9 +33,9 @@ style: |
 ## 前提
 
 - skill 本体
-  - `C:\Users\yoshi\work\minimal-skills-pack-20260415\skills`
+  - `C:\Users\username\work\minimal-skills-pack-20260415\skills`
 - 参照資料
-  - `C:\Users\yoshi\work\minimal-skills-pack-20260415\references`
+  - `C:\Users\username\work\minimal-skills-pack-20260415\references`
 - Codex 用の配置先
   - `./.agents/skills`
   - `./.agents/references`
@@ -64,7 +64,7 @@ Codex の repository-local skill 配置は次です。
 ## コピー手順: PowerShell
 
 ```powershell
-Set-Location C:\Users\yoshi\work\minimal-skills-pack-20260415
+Set-Location C:\Users\username\work\minimal-skills-pack-20260415
 
 New-Item -ItemType Directory -Force -Path .\.agents | Out-Null
 New-Item -ItemType Directory -Force -Path .\.agents\skills | Out-Null
@@ -84,7 +84,7 @@ Git Bash 前提です。
 WSL を使う場合は `/mnt/c/Users/...` に読み替えてください。
 
 ```bash
-cd /c/Users/yoshi/work/minimal-skills-pack-20260415
+cd /c/Users/username/work/minimal-skills-pack-20260415
 
 mkdir -p ./.agents/skills ./.agents/references
 
@@ -102,7 +102,7 @@ cp -R ./references/. ./.agents/references/
 4. description ベースの暗黙利用も試す
 
 ```powershell
-Set-Location C:\Users\yoshi\work\minimal-skills-pack-20260415
+Set-Location C:\Users\username\work\minimal-skills-pack-20260415
 codex
 ```
 
@@ -134,14 +134,14 @@ $schema-and-migrations
 `skills/` や `references/` を編集したら、同じコピーを再実行します。
 
 ```powershell
-Set-Location C:\Users\yoshi\work\minimal-skills-pack-20260415
+Set-Location C:\Users\username\work\minimal-skills-pack-20260415
 
 Copy-Item -Recurse -Force -Path .\skills\* -Destination .\.agents\skills\
 Copy-Item -Recurse -Force -Path .\references\* -Destination .\.agents\references\
 ```
 
 ```bash
-cd /c/Users/yoshi/work/minimal-skills-pack-20260415
+cd /c/Users/username/work/minimal-skills-pack-20260415
 
 cp -R ./skills/. ./.agents/skills/
 cp -R ./references/. ./.agents/references/
@@ -159,7 +159,7 @@ global skill として使うなら、配置先は次です。
 - `$HOME\.agents\references`
 
 ```powershell
-Set-Location C:\Users\yoshi\work\minimal-skills-pack-20260415
+Set-Location C:\Users\username\work\minimal-skills-pack-20260415
 
 New-Item -ItemType Directory -Force -Path $HOME\.agents | Out-Null
 New-Item -ItemType Directory -Force -Path $HOME\.agents\skills | Out-Null
@@ -181,7 +181,7 @@ Codex の公式ドキュメントでは
 Windows なら junction、bash なら symlink を使えます。
 
 ```powershell
-Set-Location C:\Users\yoshi\work\minimal-skills-pack-20260415
+Set-Location C:\Users\username\work\minimal-skills-pack-20260415
 
 New-Item -ItemType Directory -Force -Path .\.agents | Out-Null
 New-Item -ItemType Junction -Path .\.agents\skills -Target (Resolve-Path .\skills) | Out-Null
